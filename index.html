@@ -3,19 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Website</title>
+    <title>Stefi9.GitHub.io</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f9;
-            padding: 50px;
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #121212; color: #e0e0e0; padding: 40px; margin: 0; }
+        
+        .header-container { text-align: center; margin-bottom: 40px; border-bottom: 2px solid #222; padding-bottom: 25px; }
+        h1 { font-size: 2.5rem; color: #2196f3; margin: 0 0 10px 0; }
+        p.subtitle { color: #888; margin: 0; }
+        
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        
+        .social-card { 
+            background: #1e1e1e; 
+            border: 1px solid #333; 
+            border-radius: 12px; 
+            padding: 25px; 
+            text-decoration: none; 
+            color: inherit; 
+            transition: transform 0.2s, border-color 0.2s; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;    
+            text-align: center;     
+            justify-content: space-between; 
         }
-        h1 { color: #333; }
+        .social-card:hover { transform: translateY(-5px); border-color: #2196f3; background: #222; }
+        
+        .platform-title { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            color: #fff; 
+            margin-bottom: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+        }
+        .handle { font-size: 0.95rem; color: #aaa; line-height: 1.4; margin-bottom: 20px; flex-grow: 1; font-family: monospace; }
+        
+        .visit-btn { 
+            background: #333; 
+            border: 1px solid #444; 
+            padding: 8px 16px; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            color: #2196f3; 
+            transition: background 0.2s, color 0.2s; 
+            margin-top: 15px;
+            width: max-content;
+        }
+        .social-card:hover .visit-btn { background: #2196f3; color: #121212; border-color: #2196f3; }
     </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>My GitHub Pages site is officially live.</p>
+
+    <div class="header-container">
+        <h1>Stefi9.GitHub.io</h1>
+        <p class="subtitle">This is my GitHub.io website. Here can I do many projects I can't do on my web server.</p>
+    </div>
+
+    <div class="grid">
+        
+        <a href="IST/index.html" target="_blank" class="social-card">
+            <div>
+                <div class="platform-title">IST - Internet Servicing Tool</div>
+                <div class="handle">THE FaOSS program for network based tasks.</div>
+            </div>
+            <div class="visit-btn">Visit Page →</div>
+        </a>
+
+        <a href="site/index.html" target="_blank" class="social-card">
+            <div>
+                <div class="platform-title">My Sociales</div>
+                <div class="handle">The place where you can reach me.</div>
+            </div>
+            <div class="visit-btn">Visit Page →</div>
+        </a>
+
+    <div class="social-card" style="cursor: default;">
+        <div>
+            <div class="platform-title">More things coming soon...</div>
+            <div class="handle">More things are going to be added to this GitHub repo soon. So stay tuned.</div>
+        </div>
+    </div>
+
+    </div>
+
 </body>
 </html>

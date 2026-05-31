@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IST - Internet Servicing Tool</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #121212; color: #e0e0e0; padding: 40px; margin: 0; line-height: 1.6; }
+        
+        .header-container { text-align: center; margin-bottom: 40px; border-bottom: 2px solid #222; padding-bottom: 25px; }
+        h1 { font-size: 2.5rem; color: #4caf50; margin: 0 0 10px 0; }
+        .back-link { display: inline-block; color: #888; text-decoration: none; margin-bottom: 15px; font-size: 0.95rem; }
+        .back-link:hover { color: #4caf50; }
+        .version-badge { background: #222; border: 1px solid #4caf50; color: #4caf50; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; vertical-align: middle; }
+        p.subtitle { color: #888; margin: 0; }
+        
+        .section { background: #1e1e1e; border: 1px solid #333; border-radius: 12px; padding: 25px; margin-bottom: 25px; }
+        h2 { margin-top: 0; color: #fff; border-bottom: 1px solid #333; padding-bottom: 10px; font-size: 1.5rem; }
+        
+        .terminal-box { background: #000; border: 1px solid #444; padding: 15px; border-radius: 6px; font-family: 'Consolas', monospace; color: #f8f8f2; position: relative; margin: 15px 0; font-size: 0.95rem; }
+        .terminal-box::before { content: "CMD / PowerShell"; display: block; color: #555; font-size: 0.8rem; margin-bottom: 5px; text-transform: uppercase; }
+        
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; color: #aaa; }
+        strong { color: #fff; }
+        
+        .btn { display: inline-block; background: #333; border: 1px solid #444; padding: 10px 20px; border-radius: 6px; font-weight: bold; color: #4caf50; text-decoration: none; margin-top: 10px; transition: background 0.2s, color 0.2s; }
+        .btn:hover { background: #4caf50; color: #121212; border-color: #4caf50; }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <a href="../index.html" class="back-link">← Back to Hub</a>
+        <h1>Internet Servicing Tool <span class="version-badge">v1.8</span></h1>
+        <p class="subtitle">The definitive FaOSS, automation utility for network-based tasks, system diagnostics, and infrastructure repair.</p>
+    </div>
+
+    <div class="section">
+        <h2>Quick Deployment</h2>
+        <p style="color: #aaa; margin-top: 0;">Run these commands directly via your command prompt to initialize the environment setup:</p>
+        <div class="terminal-box">
+            curl -L github.com/stefi9/ist/releases/latest/download/ist.zip -o ist.zip<br>
+            tar -xf ist.zip
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h2>Core Capabilities</h2>
+        <ul>
+            <li><strong>Automated Diagnostics:</strong> Instantly check interface statuses, DNS resolution, and routing health.</li>
+            <li><strong>Infrastructure Repair:</strong> Flush caches, reset sockets, and renew network configurations seamlessly.</li>
+            <li><strong>Installer:</strong> Yes, a Batch file and installer. Install in Program Files (or in Local Appdata in 1.9) and you are good to go.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Development Pipeline</h2>
+        <p style="color: #aaa; margin-top: 0;"><strong>Coming up in v1.9 (June 1st):</strong> Implementation of the self-healing integrity checker subsystem and configurations.</p>
+        <p style="color: #aaa;"><strong>Major v2.0 Roadmap (August):</strong> Full transition to native script modules and cross-platform architecture variants (.sh / .ps1).</p>
+        <a href="https://github.com/Stefi9/IST" class="btn" target="_blank">View GitHub Repository →</a>
+    </div>
+
+</body>
+</html>
