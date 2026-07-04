@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startpage</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: #121212; 
+            color: #e0e0e0; 
+            padding: 40px; 
+            margin: 0; 
+            min-height: 100vh;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        /* The dark overlay body::before has been removed for full brightness */
+        
+        .header-container { text-align: center; margin-bottom: 60px; }
+        
+        /* Added text-shadow to ensure the clock is readable on bright wallpapers */
+        h1 { font-size: 3.5rem; color: #fff; margin: 0; text-shadow: 0 4px 12px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.5); font-weight: 500; }
+        
+        /* Updated grid to force center alignment */
+        .grid { 
+            display: flex; 
+            flex-wrap: wrap;
+            justify-content: center; 
+            gap: 25px; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+        }
+        
+        .social-card { 
+            background: rgba(25, 25, 25, 0.75); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+            padding: 25px; 
+            text-decoration: none; 
+            color: inherit; 
+            transition: transform 0.2s, border-color 0.2s, background 0.2s; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            justify-content: center; 
+            position: relative;
+            min-height: 110px;
+            width: 240px; /* Fixed width to keep them uniform in the flexbox */
+            box-sizing: border-box;
+        }
+        .social-card:hover { transform: translateY(-4px); border-color: #2196f3; background: rgba(35, 35, 35, 0.85); }
+        
+        .platform-title { font-size: 1.2rem; font-weight: bold; color: #fff; margin-bottom: 6px; }
+        .handle { font-size: 0.85rem; color: #aaa; font-family: monospace; word-break: break-all; }
+
+        .card-actions { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; opacity: 0; transition: opacity 0.2s; }
+        .social-card:hover .card-actions { opacity: 1; }
+        .action-btn { background: rgba(0,0,0,0.7); border: none; color: #aaa; cursor: pointer; border-radius: 4px; padding: 3px 6px; font-size: 0.75rem; }
+        .action-btn:hover { color: #fff; }
+        .delete-btn:hover { background: #ba1a1a; }
+
+        .add-card { border: 2px dashed rgba(255,255,255,0.2); background: rgba(20, 20, 20, 0.3); cursor: pointer; }
+        .add-card:hover { border-color: #2196f3; background: rgba(30, 30, 30, 0.4); }
+        .add-icon { font-size: 2rem; color: #777; margin-bottom: 4px; }
+        .add-card:hover .add-icon { color: #2196f3; }
+
+        /* Menu Panel Controls */
+        .menu-trigger {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            backdrop-filter: blur(8px);
+            transition: background 0.2s, border-color 0.2s;
+            z-index: 99;
+        }
+        .menu-trigger:hover { background: #2196f3; border-color: #2196f3; }
+
+        .side-menu {
+            position: fixed;
+            top: 0; right: -340px;
+            width: 300px; height: 100vh;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+            padding: 20px;
+            box-sizing: border-box;
+            transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .side-menu.open { right: 0; }
+
+        .menu-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px; }
+        .menu-header h2 { margin: 0; font-size: 1.3rem; color: #fff; }
+        .close-btn { background: none; border: none; color: #888; font-size: 1.3rem; cursor: pointer; }
+        .close-btn:hover { color: #fff; }
+
+        .menu-section { display: flex; flex-direction: column; gap: 10px; }
+        .menu-section h3 { margin: 0; font-size: 0.95rem; color: #2196f3; text-transform: uppercase; letter-spacing: 1px; }
+        
+        select, input, .menu-btn {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        select:focus, input:focus { border-color: #2196f3; }
+        
+        .menu-btn { background: #333; cursor: pointer; text-align: center; font-weight: bold; border-color: #555; }
+        .menu-btn:hover { background: #444; border-color: #2196f3; }
+        .danger-btn { color: #ff6b6b; }
+        .danger-btn:hover { background: #3a1f1f; border-color: #ff6b6b; }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <h1 id="clock">00:00 PM</h1>
+    </div>
+
+    <div class="grid" id="shortcuts-grid"></div>
+
+    <button class="menu-trigger" onclick="toggleMenu()">⚙️ Customize</button>
+
+    <div class="side-menu" id="side-menu">
+        <div class="menu-header">
+            <h2>Dashboard Settings</h2>
+            <button class="close-btn" onclick="toggleMenu()">✕</button>
+        </div>
+
+        <div class="menu-section">
+            <h3>Wallpaper Mode</h3>
+            <select id="wp-mode" onchange="handleModeChange(this.value)">
+                <option value="solid">Default Dark</option>
+                <option value="static">Custom Image URL</option>
+                <option value="bing-daily">Bing Image of the Day</option>
+                <option value="bing-refresh">Bing Random (Every Refresh)</option>
+            </select>
+        </div>
+
+        <div class="menu-section" id="url-input-container" style="display: none;">
+            <h3>Image Destination URL</h3>
+            <input type="text" id="wp-url" placeholder="Paste link..." onchange="saveStaticUrl(this.value)">
+        </div>
+
+        <div class="menu-section" style="margin-top: auto;">
+            <h3>Maintenance</h3>
+            <button class="menu-btn danger-btn" onclick="resetToDefault()">Reset Layout Defaults</button>
+        </div>
+    </div>
+
+    <script>
+        const defaultShortcuts = [
+            { id: 1, name: "🔍 Google", url: "https://google.com", handle: "google.com" },
+            { id: 2, name: "📽️ YouTube", url: "https://youtube.com", handle: "youtube.com" },
+            { id: 3, name: "🐙 GitHub", url: "https://github.com", handle: "github.com" },
+            { id: 4, name: "🏠 Local Hub", url: "../index.html", handle: "Back to Root" }
+        ];
+
+        let shortcuts = JSON.parse(localStorage.getItem('customShortcuts')) || defaultShortcuts;
+
+        function saveShortcuts() {
+            localStorage.setItem('customShortcuts', JSON.stringify(shortcuts));
+            renderGrid();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('shortcuts-grid');
+            grid.innerHTML = '';
+
+            shortcuts.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'social-card';
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.card-actions')) {
+                        if (item.url.startsWith('.')) {
+                            window.location.href = item.url;
+                        } else {
+                            window.open(item.url, '_blank');
+                        }
+                    }
+                });
+
+                card.innerHTML = `
+                    <div class="card-actions">
+                        <button class="action-btn" onclick="editShortcut(${item.id})">✏️</button>
+                        <button class="action-btn delete-btn" onclick="deleteShortcut(${item.id})">🗑️</button>
+                    </div>
+                    <div class="platform-title">${item.name}</div>
+                    <div class="handle">${item.handle || parseDomain(item.url)}</div>
+                `;
+                grid.appendChild(card);
+            });
+
+            const addCard = document.createElement('div');
+            addCard.className = 'social-card add-card';
+            addCard.onclick = addNewShortcut;
+            addCard.innerHTML = `
+                <div class="add-icon">+</div>
+                <div style="color: #aaa; font-size: 0.9rem; font-weight: bold;">Add Shortcut</div>
+            `;
+            grid.appendChild(addCard);
+        }
+
+        function addNewShortcut() {
+            const name = prompt("Enter Shortcut Name:");
+            if (!name) return;
+            let url = prompt("Enter Target URL:");
+            if (!url) return;
+            if (!/^https?:\/\//i.test(url) && !url.startsWith('.')) url = 'https://' + url;
+            const handle = prompt("Enter label/handle (Optional):") || parseDomain(url);
+
+            shortcuts.push({ id: Date.now(), name, url, handle });
+            saveShortcuts();
+        }
+
+        function editShortcut(id) {
+            const item = shortcuts.find(s => s.id === id);
+            if (!item) return;
+            const newName = prompt("Edit Name:", item.name);
+            if (newName) item.name = newName;
+            let newUrl = prompt("Edit URL:", item.url);
+            if (newUrl) {
+                if (!/^https?:\/\//i.test(newUrl) && !newUrl.startsWith('.')) newUrl = 'https://' + newUrl;
+                item.url = newUrl;
+            }
+            const newHandle = prompt("Edit Handle:", item.handle);
+            if (newHandle !== null) item.handle = newHandle;
+            saveShortcuts();
+        }
+
+        function deleteShortcut(id) {
+            shortcuts = shortcuts.filter(s => s.id !== id);
+            saveShortcuts();
+        }
+
+        function resetToDefault() {
+            if (confirm("Reset layout? Custom additions will drop completely.")) {
+                shortcuts = defaultShortcuts;
+                localStorage.removeItem('wpMode');
+                localStorage.removeItem('staticWpUrl');
+                localStorage.removeItem('cachedBingUrl');
+                localStorage.removeItem('cachedBingDate');
+                location.reload();
+            }
+        }
+
+        function toggleMenu() {
+            document.getElementById('side-menu').classList.toggle('open');
+        }
+
+        function handleModeChange(mode) {
+            localStorage.setItem('wpMode', mode);
+            const urlInput = document.getElementById('url-input-container');
+            urlInput.style.display = (mode === 'static') ? 'block' : 'none';
+            applyWallpaper();
+        }
+
+        function saveStaticUrl(url) {
+            localStorage.setItem('staticWpUrl', url);
+            applyWallpaper();
+        }
+
+        async function applyWallpaper() {
+            const mode = localStorage.getItem('wpMode') || 'solid';
+            document.getElementById('wp-mode').value = mode;
+            
+            const urlInput = document.getElementById('url-input-container');
+            urlInput.style.display = (mode === 'static') ? 'block' : 'none';
+
+            if (mode === 'solid') {
+                document.body.style.backgroundImage = 'none';
+            } 
+            else if (mode === 'static') {
+                const url = localStorage.getItem('staticWpUrl') || '';
+                document.getElementById('wp-url').value = url;
+                document.body.style.backgroundImage = url ? `url('${url}')` : 'none';
+            } 
+            else if (mode === 'bing-refresh') {
+                document.body.style.backgroundImage = `url('https://bing.biturl.top/?resolution=1920&format=image&index=random&mkt=en-US&_ts=${Date.now()}')`;
+            } 
+            else if (mode === 'bing-daily') {
+                const todayStr = new Date().toDateString();
+                const cachedDate = localStorage.getItem('cachedBingDate');
+                const cachedUrl = localStorage.getItem('cachedBingUrl');
+
+                if (cachedDate === todayStr && cachedUrl) {
+                    document.body.style.backgroundImage = `url('${cachedUrl}')`;
+                } else {
+                    try {
+                        const res = await fetch('https://bing.biturl.top/?resolution=1920&format=json&index=0&mkt=en-US');
+                        const data = await res.json();
+                        if (data.url) {
+                            localStorage.setItem('cachedBingDate', todayStr);
+                            localStorage.setItem('cachedBingUrl', data.url);
+                            document.body.style.backgroundImage = `url('${data.url}')`;
+                        }
+                    } catch (e) {
+                        console.error("Failed downloading daily Bing image asset:", e);
+                    }
+                }
+            }
+        }
+
+        function parseDomain(url) {
+            if(url.startsWith('.')) return "local path";
+            try { return new URL(url).hostname.replace('www.', ''); } catch(e) { return url; }
+        }
+
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderGrid();
+            applyWallpaper();
+            updateClock();
+            setInterval(updateClock, 1000);
+        });
+    </script>
+</body>
+</html>
