@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Button Example</title>
+    <style>
+        /* This styles the link so it looks and feels like a real button */
+        .download-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #007BFF;
+            color: #ffffff;
+            text-decoration: none;
+            font-family: sans-serif;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        /* Hover effect */
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Click effect */
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+<p>
+    You can get the resources you need by downloading 
+    <a href="https://github.com/stefi9/ist/releases/latest/download/ist.zip" download="ist.zip" class="download-btn">this file</a>.
+</p>
+
+</body>
+</html>
